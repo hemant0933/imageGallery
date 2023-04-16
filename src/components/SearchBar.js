@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axois from 'axios';
+import axios from 'axios';
 
 
 const SearchBar = ({setImage}) => {
@@ -8,7 +8,7 @@ const SearchBar = ({setImage}) => {
 
   const handleSearch = async(e) => {
     // e.prevent.default(e);
-    const response = await axois.get("https://api.unsplash.com/search/photos",{
+    const response = await axios.get("https://api.unsplash.com/search/photos",{
         params:{query: searchTerm},
         headers:{
             Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}`

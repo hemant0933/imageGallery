@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 
+
 const ImageView = ({photo}) => {
     let [isClicked,setIsClicked] = useState(false);
  
