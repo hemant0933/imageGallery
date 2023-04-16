@@ -12,7 +12,7 @@ let [image,setImage] = useState([]);
   return (
     <>
     <div className='container-fluid '>
-      <h1 className='text-center mt-3 heading'><b>Unsplash 2.0</b></h1>
+      <h1 className='text-center mt-3 heading'><b> Pexels </b></h1>
       <SearchBar setImage={setImage}/>
       <ImageGallery images={image}/>
     </div>
