@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Italiana&family=Marcellus&family=Mulish:wght@200;300;400;500;600;700;800;900;1000&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.root{
+    --font-family-annie: 'Annie Use Your Telescope', cursive;
+    --font-family-inter: 'Inter', sans-serif;
+    --font-family-it: 'Italiana', serif;
+    --font-family-mar: 'Marcellus', serif;
+    --font-family-mulish: 'Mulish', sans-serif;
+    --font-family-work: 'Work Sans', sans-serif;
+}
+
+.inter{
+    font-family: var(--font-family-inter);
+}
+.it{
+    font-family: var(--font-family-it);
+}
+.mar{
+    font-family: var(--font-family-mar);
+}
+.mulish{
+    font-family: var(--font-family-mulish);
+}
+.annie{
+    font-family: var(--font-family-annie);
+}
+
+.bgBannerImage{
+    background:url(./Assets/images/bannerImage.jpeg);
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.bgBannerImage::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+.image-wrapper {
+    columns: 3;
+    column-gap: 2px;
+    width: 95%;
+    margin: 4px auto;
+  }
+
+  .image-wrapper img{
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+  } 
+  .image-view:hover {
+    transform: scale(1.05);
+  }
+  
+  .image-view.expanded img {
+    opacity: 0.7;
+  }
