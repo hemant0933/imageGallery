@@ -1,28 +1,21 @@
-// import SearchBar from './components/SearchBar';
-// import React,{useState} from 'react';
-// import ImageGallery from './components/ImageGallery';
-// import Footer from './components/Footer';
-import Home from './Pages/Home';
-// import Navbar from './components/Navbar';
+import { Route, Routes } from "react-router-dom";
+import Home from "./Pages/Home";
+import VideosPage from "./Pages/VideosPage";
+import Leaderboard from "./Pages/Leaderboard";
+import Challenges from "./Pages/Challenges";
+import ErrorPage from "./Pages/ErrorPage";
 
 function App() {
- 
-// let [image,setImage] = useState([]);
-    // console.log(image);
- 
   return (
     <>
-    <>
-      {/* <h1 className='text-center mt-3 heading'><b> Pexels </b></h1>
-      <SearchBar setImage={setImage}/>
-      <ImageGallery images={image}/> */}
-      <Home/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/videos" element={<VideosPage />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/challenges" element={<Challenges />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
     </>
-    {/* <Footer/> */}
-    
-    </>
-    
-
   );
 }
 

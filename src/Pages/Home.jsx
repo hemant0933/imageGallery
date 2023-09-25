@@ -24,8 +24,6 @@ const Home = () => {
     const getRandomPhoto = async () => {
 
      try{
-      const apiKey = process.env.REACT_APP_UNSPLASH_API_KEY;  
-      const count = 30;
       const res = await axios.get("https://api.unsplash.com/photos/random?client_id=kUZDHVQeOQENYKbF5HFRHbEX3vpUNXR_d-AZEInYCSU&count=30")
       setRandomPhoto(res.data)
       // console.log(res.data);
@@ -41,7 +39,7 @@ const Home = () => {
 
 
   return (
-    <>
+   
     <div className="w-full relative flex items-center flex-col gap-14 z-10">
     <div className="w-full h-[500px] absolute top-0 inset-x-0 bgBannerImage -z-1"></div>
       <Navbar />
@@ -85,7 +83,6 @@ const Home = () => {
     </div>
     </div> 
    
-    </>
   );
 };
 
