@@ -4,6 +4,7 @@ import SearchDropdown from "../components/SearchDropdown";
 import AnotherNav from "../components/AnotherNav";
 import FreeStockPhotos from "../components/FreeStockPhotos";
 import axios from "axios";
+import SearchResults from "../components/SearchResults";
 
 const menucontent = [
   { label: "Photos", url: "", icon: photoIcon },
@@ -20,9 +21,10 @@ const trendingKeywords = [
 
 const Home = () => {
     const [randomPhoto,setRandomPhoto] = useState();
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState([]); 
 
     const getRandomPhoto = async () => {
-
      try{
       const res = await axios.get("https://api.unsplash.com/photos/random?client_id=kUZDHVQeOQENYKbF5HFRHbEX3vpUNXR_d-AZEInYCSU&count=30")
       setRandomPhoto(res.data)
@@ -31,7 +33,16 @@ const Home = () => {
         console.log(`Error fetching data: ${err}`);
      }
     }
-  
+
+    const performSearch = async () => {
+      try {
+        const res = await axios.get(`https://api.unsplash.com/search/photos?page=1&client_id=kUZDHVQeOQENYKbF5HFRHbEX3vpUNXR_d-AZEInYCSU&query=${searchQuery}`);
+        setSearchResults(res.data.results);
+        console.log(searchResults)
+      } catch (err) {
+        console.log(`Error performing the search: ${err}`);
+      }
+    };
     useEffect(() => {
       getRandomPhoto();
     },[])
@@ -53,13 +64,20 @@ const Home = () => {
         <div className="w-full h-[52px] flex justify-between items-center gap-3 bg-white px-1 py-2 rounded-lg">
           <SearchDropdown menucontent={menucontent} />
           <input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             type="text"
             className="w-full p-2 rounded-lg outline-none text-lg font-semibold inter text-gray-400"
             placeholder="Search for free photos"
           />
-          <button className="flex items-center justify-center" type="button">
+          <button
+            onClick={performSearch}
+            className="flex items-center justify-center"
+            type="button"
+          >
             <SearchIcon />
           </button>
+
         </div>
         {/* TRENDING SEARCHES */}
         <div className="w-full flex items-center gap-2 mt-4">
@@ -79,7 +97,11 @@ const Home = () => {
       </div>
       <div className="w-full h-full pt-16 z-10">
         <AnotherNav/>
-        <FreeStockPhotos randomPhoto={randomPhoto}/>        
+        {searchQuery ? ( 
+          <SearchResults searchResults={searchResults} />
+        ) : (
+          <FreeStockPhotos randomPhoto={randomPhoto} />
+        )}       
     </div>
     </div> 
    
