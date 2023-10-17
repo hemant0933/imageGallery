@@ -26,10 +26,10 @@ const VideosPage = () => {
 
   const getRandomVideo = async () => {
     try {
-      // const apiKey = process.env.REACT_APP_PEXEL_API_KEY;
+      const apiKey = process.env.REACT_APP_PEXEL_API_KEY;
       const res = await axios.get('https://api.pexels.com/videos/popular', {
         headers: {
-          Authorization: "Pgb8dB2yUUGe4w7CCXSzBxta3C5GD8UUVrXbmvajBWFCK1uyPXMVgHSn"
+          Authorization: apiKey
         },
         params: {
           'per_page': 30

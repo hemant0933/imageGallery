@@ -5,6 +5,8 @@ import AnotherNav from "../components/AnotherNav";
 import FreeStockPhotos from "../components/FreeStockPhotos";
 import axios from "axios";
 import SearchResults from "../components/SearchResults";
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 const menucontent = [
   { label: "Photos", url: "", icon: photoIcon },
@@ -20,39 +22,42 @@ const trendingKeywords = [
 ];
 
 const Home = () => {
-    const [randomPhoto,setRandomPhoto] = useState();
-    const [searchQuery, setSearchQuery] = useState("");
-    const [searchResults, setSearchResults] = useState([]); 
+  const [randomPhoto, setRandomPhoto] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const clientId = process.env.REACT_APP_UNSPLASH_API_KEY;
 
-    const getRandomPhoto = async () => {
-     try{
-      const res = await axios.get("https://api.unsplash.com/photos/random?client_id=kUZDHVQeOQENYKbF5HFRHbEX3vpUNXR_d-AZEInYCSU&count=30")
-      setRandomPhoto(res.data)
+  const getRandomPhoto = async () => {
+    try {
+      const res = await axios.get(
+        `https://api.unsplash.com/photos/random?client_id=${clientId}&count=30`
+      );
+      setRandomPhoto(res.data);
       // console.log(res.data);
-     }catch(err){
-        console.log(`Error fetching data: ${err}`);
-     }
+    } catch (err) {
+      console.log(`Error fetching data: ${err}`);
     }
+  };
 
-    const performSearch = async () => {
-      try {
-        const res = await axios.get(`https://api.unsplash.com/search/photos?page=1&client_id=kUZDHVQeOQENYKbF5HFRHbEX3vpUNXR_d-AZEInYCSU&query=${searchQuery}`);
-        setSearchResults(res.data.results);
-        console.log(searchResults)
-      } catch (err) {
-        console.log(`Error performing the search: ${err}`);
-      }
-    };
-    useEffect(() => {
-      getRandomPhoto();
-    },[])
-  
+  const performSearch = async () => {
+    try {
+      const res = await axios.get(
+        `https://api.unsplash.com/search/photos?page=1&client_id=${clientId}&query=${searchQuery}`
+      );
+      setSearchResults(res.data.results);
+      console.log(searchResults);
+    } catch (err) {
+      console.log(`Error performing the search: ${err}`);
+    }
+  };
 
+  useEffect(() => {
+    getRandomPhoto();
+  }, []); 
 
   return (
-   
     <div className="w-full relative flex items-center flex-col gap-14 z-10">
-    <div className="w-full h-[500px] absolute top-0 inset-x-0 bgBannerImage -z-1"></div>
+      <div className="w-full h-[500px] absolute top-0 inset-x-0 bgBannerImage -z-1"></div>
       <Navbar />
       {/* HERO SECTION */}
       <div className="w-full max-w-[630px] h-[267px] pt-[5px] z-2 flex justify-center items-center flex-col px-4">
@@ -77,14 +82,17 @@ const Home = () => {
           >
             <SearchIcon />
           </button>
-
         </div>
         {/* TRENDING SEARCHES */}
         <div className="w-full flex items-center gap-2 mt-4">
           <span className="text-lg text-gray-300 font-semibold">Trending:</span>
           <span className="flex items-center gap-2">
             {trendingKeywords.map((keyword, index) => (
-              <a href="/" key={keyword} className="text-lg text-white font-semibold">
+              <a
+                href="/"
+                key={keyword}
+                className="text-lg text-white font-semibold"
+              >
                 {keyword}
                 {index < trendingKeywords.length - 1 ? ", " : ""}
               </a>
@@ -96,15 +104,14 @@ const Home = () => {
         </div>
       </div>
       <div className="w-full h-full pt-16 z-10">
-        <AnotherNav/>
-        {searchQuery ? ( 
+        <AnotherNav />
+        {searchQuery ? (
           <SearchResults searchResults={searchResults} />
         ) : (
           <FreeStockPhotos randomPhoto={randomPhoto} />
-        )}       
+        )}
+      </div>
     </div>
-    </div> 
-   
   );
 };
 
